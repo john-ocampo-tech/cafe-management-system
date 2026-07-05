@@ -19,10 +19,10 @@ const navSettings = [
   { to: '/settings', icon: 'ti-settings', label: 'Settings' },
 ]
 
-function NavSection({ label, items }) {
+function NavSection({ items, showDivider }) {
   return (
     <div className="nav-section">
-      <span className="nav-label">{label}</span>
+      {showDivider && <div className="nav-divider" />}
       {items.map(({ to, icon, label, badge }) => (
         <NavLink
           key={to}
@@ -30,7 +30,10 @@ function NavSection({ label, items }) {
           end={to === '/'}
           className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
         >
-          <i className={`ti ${icon}`} aria-hidden="true" />
+          {/* 44px wide container for perfect centering in a 52px sidebar */}
+          <div className="nav-icon-wrapper">
+            <i className={`ti ${icon}`} aria-hidden="true" />
+          </div>
           <span className="nav-text">{label}</span>
           {badge && <span className="nav-badge">{badge}</span>}
         </NavLink>
@@ -61,23 +64,22 @@ export default function Layout() {
         </div>
 
         <nav className="sidebar-nav">
-          <NavSection label="Main"     items={navMain} />
-          <NavSection label="Reports"  items={navReports} />
-          <NavSection label="Settings" items={navSettings} />
+          <NavSection items={navMain} />
+          <NavSection items={navReports} showDivider />
+          <NavSection items={navSettings} showDivider />
         </nav>
 
         <div className="sidebar-footer">
           <div className="user-row">
-            <div className="avatar">JO</div>
+            {/* Matches nav-icon-wrapper size for perfect alignment */}
+            <div className="avatar-wrapper">
+              <div className="avatar-circle">JO</div>
+            </div>
             <div className="user-info">
               <p className="user-name">John Ocampo</p>
               <span className="user-role">Admin</span>
             </div>
-            <button
-              className="signout-btn"
-              onClick={handleSignOut}
-              title="Sign out"
-            >
+            <button className="signout-btn" onClick={handleSignOut} title="Sign out">
               <i className="ti ti-logout" aria-hidden="true" />
             </button>
           </div>
