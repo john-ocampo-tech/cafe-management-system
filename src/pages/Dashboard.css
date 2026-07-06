@@ -1,6 +1,7 @@
 .dashboard {
   padding: 24px;
-  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ── Topbar ── */
@@ -9,12 +10,14 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
+  gap: 16px;
 }
 
 .dash-greeting {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
   color: #1a1a1a;
+  margin: 0;
 }
 
 .dash-date {
@@ -40,11 +43,13 @@
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  transition: background 0.15s;
+  transition: all 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
 }
 
 .btn-icon:hover {
   background: #f0f0ee;
+  transform: scale(1.05);
 }
 
 .btn-primary {
@@ -55,24 +60,38 @@
   border: none;
   border-radius: 8px;
   font-size: 13px;
-  font-weight: 500;
-  font-family: 'Inter', sans-serif;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: opacity 0.15s;
+  transition: all 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
+  filter: brightness(1.1);
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(29, 158, 117, 0.2);
 }
 
-/* ── Metrics ── */
+.btn-primary:active {
+  transform: scale(0.96); /* Tactical click feel */
+}
+
+/* ── Metrics Grid ── */
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   margin-bottom: 20px;
+}
+
+@media (max-width: 1100px) {
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .metrics-grid { grid-template-columns: 1fr; }
 }
 
 .metric-card {
@@ -80,6 +99,14 @@
   border: 0.5px solid rgba(0,0,0,0.08);
   border-radius: 8px;
   padding: 14px;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: default;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(29, 158, 117, 0.3);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.04);
 }
 
 .metric-label {
@@ -89,10 +116,11 @@
   align-items: center;
   gap: 5px;
   margin-bottom: 8px;
+  text-transform: uppercase;
 }
 
-.metric-label i {
-  font-size: 14px;
+.metric-card:hover .metric-label i {
+  color: #1D9E75;
 }
 
 .metric-value {
@@ -116,11 +144,21 @@
   gap: 14px;
 }
 
+@media (max-width: 1000px) {
+  .dash-grid { grid-template-columns: 1fr; }
+}
+
 .card {
   background: #fff;
   border: 0.5px solid rgba(0,0,0,0.08);
   border-radius: 12px;
   padding: 16px;
+  min-width: 0;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.03);
 }
 
 .card-header {
@@ -142,22 +180,29 @@
 }
 
 /* ── Orders table ── */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .orders-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 12px;
+  min-width: 400px;
 }
 
 .orders-table tr {
   border-bottom: 0.5px solid rgba(0,0,0,0.06);
+  transition: background 0.1s ease;
 }
 
-.orders-table tr:last-child {
-  border-bottom: none;
+.orders-table tr:hover {
+  background: #fbfbf9;
 }
 
 .orders-table td {
-  padding: 8px 4px;
+  padding: 10px 4px;
   color: #1a1a1a;
 }
 
@@ -183,7 +228,7 @@
   align-items: flex-end;
   gap: 6px;
   height: 72px;
-  margin: 8px 0 4px;
+  margin: 8px 0 12px;
 }
 
 .bar-col {
@@ -194,13 +239,21 @@
   gap: 4px;
   height: 100%;
   justify-content: flex-end;
+  cursor: pointer;
 }
 
 .bar {
   width: 100%;
-  background: #9FE1CB;
+  background: #C9EFE2;
   border-radius: 3px 3px 0 0;
   min-height: 4px;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.bar-col:hover .bar {
+  background: #1D9E75;
+  transform: scaleX(1.1);
+  filter: brightness(1.1);
 }
 
 .bar.active {
@@ -216,19 +269,21 @@
 .top-items {
   margin-top: 14px;
   border-top: 0.5px solid rgba(0,0,0,0.06);
-  padding-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  padding-top: 4px;
 }
 
 .top-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 7px 0;
+  padding: 10px 0;
   border-bottom: 0.5px solid rgba(0,0,0,0.06);
   font-size: 12px;
+  transition: transform 0.15s ease;
+}
+
+.top-item:hover {
+  transform: translateX(4px); /* Slick item slide */
 }
 
 .top-item:last-child {
@@ -240,10 +295,13 @@
   height: 8px;
   border-radius: 50%;
   background: #1D9E75;
-  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.top-item:hover .item-dot {
+  transform: scale(1.4);
 }
 
 .item-dot.low { background: #D85A30; }
-
 .item-name  { flex: 1; color: #1a1a1a; }
 .item-count { color: #888; }

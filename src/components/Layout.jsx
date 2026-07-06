@@ -30,7 +30,6 @@ function NavSection({ items, showDivider }) {
           end={to === '/'}
           className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
         >
-          {/* 44px wide container for perfect centering in a 52px sidebar */}
           <div className="nav-icon-wrapper">
             <i className={`ti ${icon}`} aria-hidden="true" />
           </div>
@@ -52,39 +51,41 @@ export default function Layout() {
 
   return (
     <div className="layout">
-      <aside className="sidebar">
-        <div className="sidebar-logo">
-          <div className="logo-icon">
-            <i className="ti ti-mug" aria-hidden="true" />
-          </div>
-          <div className="logo-text-wrap">
-            <span className="logo-name">Brew & Co.</span>
-            <span className="logo-sub">Cafe Management</span>
-          </div>
-        </div>
-
-        <nav className="sidebar-nav">
-          <NavSection items={navMain} />
-          <NavSection items={navReports} showDivider />
-          <NavSection items={navSettings} showDivider />
-        </nav>
-
-        <div className="sidebar-footer">
-          <div className="user-row">
-            {/* Matches nav-icon-wrapper size for perfect alignment */}
-            <div className="avatar-wrapper">
-              <div className="avatar-circle">JO</div>
+      {/* ── Sidebar Wrapper: Keeps content from shifting ── */}
+      <div className="sidebar-wrapper">
+        <aside className="sidebar">
+          <div className="sidebar-logo">
+            <div className="logo-icon">
+              <i className="ti ti-mug" aria-hidden="true" />
             </div>
-            <div className="user-info">
-              <p className="user-name">John Ocampo</p>
-              <span className="user-role">Admin</span>
+            <div className="logo-text-wrap">
+              <span className="logo-name">Brew & Co.</span>
+              <span className="logo-sub">Cafe Management</span>
             </div>
-            <button className="signout-btn" onClick={handleSignOut} title="Sign out">
-              <i className="ti ti-logout" aria-hidden="true" />
-            </button>
           </div>
-        </div>
-      </aside>
+
+          <nav className="sidebar-nav">
+            <NavSection items={navMain} />
+            <NavSection items={navReports} showDivider />
+            <NavSection items={navSettings} showDivider />
+          </nav>
+
+          <div className="sidebar-footer">
+            <div className="user-row">
+              <div className="avatar-wrapper">
+                <div className="avatar-circle">JO</div>
+              </div>
+              <div className="user-info">
+                <p className="user-name">John Ocampo</p>
+                <span className="user-role">Admin</span>
+              </div>
+              <button className="signout-btn" onClick={handleSignOut} title="Sign out">
+                <i className="ti ti-logout" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
 
       <main className="main-content">
         <Outlet />

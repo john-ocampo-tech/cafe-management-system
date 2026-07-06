@@ -78,7 +78,7 @@ export default function Dashboard() {
       <div className="metrics-grid fade-in-up delay-1">
         {metrics.map(({ label, value, delta, up, icon }) => (
           <div key={label} className="metric-card">
-            <div className="metric-label">
+            <div className="metric-label">av
               <i className={`ti ${icon}`} aria-hidden="true" />
               {label}
             </div>
